@@ -1,8 +1,13 @@
 apply plugin: 'java'
-apply plugin: 'application'
 apply plugin: 'eclipse'
 
 sourceCompatibility = '1.6'
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'hello-gradle', 'Implementation-Version': version
+    }
+}
 
 repositories {
     mavenCentral()
@@ -11,5 +16,17 @@ repositories {
 dependencies {
     compile 'com.google.guava:guava:17.0'
 
-    testCompile 'junit:junit:4.11' // A dependency for a test framework.
+    testCompile 'junit:junit:4.11'
+}
+
+test {
+    systemProperties 'property': 'value'
+}
+
+uploadArchives {
+    repositories {
+       flatDir {
+           dirs 'repos'
+       }
+    }
 }
